@@ -6,8 +6,8 @@
       <class name="testCases.TC_001_AddToCart">
         <methods>
           <include name="tearDown"/>
-          <include name="verify_productAdded"/>
           <include name="setup"/>
+          <include name="verify_productAdded"/>
         </methods>
       </class> <!-- testCases.TC_001_AddToCart -->
     </classes>

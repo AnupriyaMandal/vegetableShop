@@ -1,6 +1,8 @@
 package pageObjects;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -19,28 +21,40 @@ public WebDriver driver;
 	
 	@FindBy(xpath="//input[@placeholder='Search for Vegetables and Fruits']")
 	WebElement search;
-	@FindBy(xpath="//div[@class='products']//div[1]//div[3]//button[1]")
-	WebElement add_brocoli;
-	@FindBy(xpath="//div[@class='products']//div[1]//div[3]//button[1]")
-	WebElement add_cauliflower;
+	@FindBy(xpath="//button[@type='button'][normalize-space()='ADD TO CART']")
+	List<WebElement> allVegetables;
 	@FindBy(xpath="//img[@alt='Cart']")
 	WebElement cart;
 	@FindBy(xpath="//div[@class='cart-preview active']//div//div//ul[@class='cart-items']")
-	WebElement items;
+	List<WebElement> items;
+	@FindBy(xpath="//button[normalize-space()='PROCEED TO CHECKOUT']")
+	WebElement btn_Checkout;
+	@FindBy(xpath="//div[@class='brand greenLogo']")
+	WebElement logo;
 	
 	
-	public void addVegetable1() {
-		add_brocoli.click();
-	}
-	public void addVegetable2() {
-		add_cauliflower.click();
+	
+	public void addVegetbales() {
+		ArrayList<WebElement> myList=new ArrayList<WebElement>();
+		myList.addAll(allVegetables);
+		Iterator<WebElement> it=myList.iterator();
+		while(it.hasNext()) {
+			it.next().click();
+		}
+		
 	}
 	public void checkCart() {
 		cart.click();
 	}
 	public boolean checkItems() {
-		List<WebElement> cartItems=driver.findElements(By.xpath("//div[@class='cart-preview active']//div//div//ul[@class='cart-items']"));
-		boolean result=cartItems.isEmpty();
+		boolean result=items.isEmpty();
 		return result;
+	}
+	public void checkout() {
+		btn_Checkout.click();
+	}
+	public String checkLogo() {
+		String image=logo.getText();
+		return image;
 	}
 }

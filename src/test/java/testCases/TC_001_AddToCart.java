@@ -1,29 +1,35 @@
 package testCases;
+
+
+
+
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import pageObjects.HomePage;
+import pageObjects.SecondPage;
 import testBase.BaseClass;
 
 public class TC_001_AddToCart extends BaseClass {
 
 	public HomePage hp;
 	
+	
 	@Test(groups="Master")
 	public void verify_productAdded() {
 		
-		try {
-		logger.info("******Adding vegetables to the cart******");
 		hp=new HomePage(driver);
-		hp.addVegetable1();
-		hp.addVegetable2();
+		logger.info("******Adding vegetables to the cart******");
+		hp.addVegetbales();
+		logger.info("*****All Vegetables added******");
 		hp.checkCart();
 		boolean value=hp.checkItems();
-		Assert.assertEquals(value, true);}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+		Assert.assertEquals(value, false);
+		hp.checkout();
+		
+		
+		
 	}
-	
 
 }

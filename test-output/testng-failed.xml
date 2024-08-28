@@ -13,12 +13,18 @@
       </run>
     </groups>
     <classes>
-      <class name="testCases.TC_001_AddToCart">
+      <class name="testCases.TC_002_FinalCart">
         <methods>
-          <include name="verify_productAdded"/>
+          <include name="verifyCart"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- testCases.TC_001_AddToCart -->
+      </class> <!-- testCases.TC_002_FinalCart -->
+      <class name="testCases.TC_003_AddressDets">
+        <methods>
+          <include name="setup"/>
+          <include name="verify"/>
+        </methods>
+      </class> <!-- testCases.TC_003_AddressDets -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

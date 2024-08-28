@@ -3,7 +3,7 @@ package testBase;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -13,24 +13,22 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Platform;
+
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
 import org.testng.annotations.Parameters;
 
 public class BaseClass {
 	public static WebDriver driver;
-	public Logger logger;
+	public static Logger logger;
 	public Properties p;
 	
-	@BeforeClass(groups= "Master")
+	
+	@BeforeTest(groups="Master")
 	@Parameters({"os","browser"})
 	public void setup(String os, String br) throws IOException
 	{
@@ -42,7 +40,7 @@ public class BaseClass {
 		logger=LogManager.getLogger(this.getClass());
 		
 		/*if(p.getProperty("execution_env").equalsIgnoreCase("remote")) {
-			DesiredCapabilities cap=new DesiredCapabilities();
+			DesiredCapabilities cap=new DesiredCapabilities(); 
 			
 			if(os.equalsIgnoreCase("windows")) {
 				cap.setPlatform(Platform.WIN11);
@@ -70,7 +68,7 @@ public class BaseClass {
 			return;
 		}*/
 			
-		
+			
 			switch(br.toLowerCase()) {
 			case "chrome" : driver=new ChromeDriver();
 			break;
@@ -89,15 +87,19 @@ public class BaseClass {
 		driver.get(p.getProperty("Appurl"));  //reading url from properties file
 		driver.manage().window().maximize();
 		
-	} 
-	@AfterClass
-	public void tearDown() {
-		 if (driver != null)
-		 {
+		 logger.info("Setup complete.");
+		}
 		
+	 
+	@AfterTest()
+	public void tearDown() {
+		if(driver !=null) {
+			
 		driver.quit();
-		 }
+		logger.info("Teardown complete.");}
+
 	}
+	
 	public String captureScreen(String tname) throws IOException {
 
 		String timeStamp = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
